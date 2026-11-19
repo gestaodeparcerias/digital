@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diária - Portal de Apoio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fc;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho e Menu Superior */
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.08);
+            border-top: 4px solid;
+            border-image: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899, #f97316, #10b981) 1;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-area span {
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #0284c7, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .nav-menu li a:hover {
+            background-color: #f0f7ff;
+            color: #0284c7;
+        }
+
+        /* Destaque do item selecionado no menu superior */
+        .nav-menu li a.active {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+            color: #5b21b6;
+        }
+
+        /* Mesmo banner degradê azul com roxo da página inicial */
+        .hero {
+            background: linear-gradient(120deg, #0ea5e9 0%, #6366f1 50%, #d946ef 100%);
+            color: #ffffff;
+            padding: 46px 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: #f8fafc;
+            max-width: 680px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Quadrinho branco principal */
+        .container {
+            max-width: 1140px;
+            margin: 32px auto;
+            padding: 0 24px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            color: #1e293b;
+            margin-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        .conteudo-diaria {
+            margin-top: 16px;
+            color: #334155;
+        }
+
+        .conteudo-diaria p {
+            margin-bottom: 12px;
+        }
+
+        .conteudo-diaria ol {
+            margin-left: 22px;
+            margin-bottom: 20px;
+        }
+
+        .conteudo-diaria li {
+            margin-bottom: 8px;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            text-decoration: none;
+            background-color: #0284c7;
+            color: #ffffff;
+            padding: 9px 16px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-voltar:hover {
+            opacity: 0.88;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- MENU SUPERIOR (DIÁRIA MARCADA COMO ATIVA) -->
+    <header>
+        <div class="navbar">
+            <a href="index.html" class="logo-area">
+                <img src="gestao_de_parcerias_logo.png" alt="Logo Gestão de Parcerias">
+                <span>Portal de Apoio</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="diaria.html" class="active">Diária</a></li>
+                    <li><a href="index.html#primeiros-passos">Primeiros Passos</a></li>
+                    <li><a href="index.html#de-globo">De Globo</a></li>
+                    <li><a href="index.html#v-globo">V-Globo</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- BANNER PRINCIPAL (MESMO DEGRADÊ AZUL COM ROXO) -->
+    <section class="hero">
+        <h1>Bem-vindo ao Portal de Apoio</h1>
+        <p>Orientações e passo a passo completo para a rotina de Diária.</p>
+    </section>
+
+    <!-- QUADRINHO BRANCO COM O CONTEÚDO DA DIÁRIA -->
+    <main class="container">
+        <div class="card">
+            <h2>Diária</h2>
+            <div class="conteudo-diaria">
+                <p>Escreva aqui as orientações gerais da Diária para o cliente interno:</p>
+                <ol>
+                    <li><strong>Etapa 1:</strong> Adicione aqui a primeira instrução.</li>
+                    <li><strong>Etapa 2:</strong> Adicione aqui a segunda instrução.</li>
+                    <li><strong>Etapa 3:</strong> Adicione aqui a terceira instrução.</li>
+                </ol>
+                <a href="index.html" class="btn-voltar">← Voltar para o Início</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer>
+        Portal de Apoio - Gestão de Parcerias
+    </footer>
+
+</body>
+</html>
