@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checks - Portal de Apoio | Gestão de Parcerias</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-page: #f0f4f8;
+            --bg-card: #ffffff;
+            --text-primary: #1a2942;
+            --text-secondary: #5a6c84;
+            --border-subtle: #dde5ef;
+            --accent-purple: #7b3fe4;
+            --accent-blue: #0095da;
+            --accent-orange: #e65c00;
+            --accent-green: #0f9d58;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Cabeçalho no estilo Portal de Apoio */
+        .top-header {
+            background-color: var(--bg-card);
+            padding: 14px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(15, 30, 48, 0.06);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .brand-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--accent-purple);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .nav-links span.active {
+            background-color: #eef2ff;
+            color: var(--accent-purple);
+            padding: 7px 14px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        /* Faixa gradiente abaixo do menu */
+        .gradient-bar {
+            height: 36px;
+            width: 100%;
+            background: linear-gradient(90deg, #00a8e8 0%, #5b6ee1 50%, #c837ab 100%);
+        }
+
+        .container {
+            max-width: 1120px;
+            width: 100%;
+            margin: 32px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .panel-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 28px 32px;
+            box-shadow: 0 6px 22px rgba(15, 30, 48, 0.06);
+            border-top: 4px solid var(--accent-blue);
+            margin-bottom: 24px;
+        }
+
+        .panel-card h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .panel-card p.subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        /* Linhas com rótulo à esquerda e campo na frente */
+        .form-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            max-width: 560px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            align-items: center;
+            gap: 14px;
+            background-color: #f8fafc;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 12px 16px;
+        }
+
+        .field-row label {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .field-row input,
+        .field-row select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            color: var(--text-primary);
+            background-color: #ffffff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .field-row input:focus,
+        .field-row select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 149, 218, 0.15);
+        }
+
+        .actions {
+            margin-top: 22px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-enviar {
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 11px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.15s;
+        }
+
+        .btn-enviar:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn-limpar {
+            background-color: #eef2f6;
+            color: var(--text-primary);
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 11px 18px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .btn-limpar:hover {
+            background-color: #e2e8f0;
+        }
+
+        .alert-error {
+            margin-top: 14px;
+            color: #b91c1c;
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+            max-width: 560px;
+        }
+
+        /* Área de cards gerados logo abaixo */
+        .cards-section-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 18px;
+        }
+
+        .check-card {
+            background-color: var(--bg-card);
+            border-radius: 10px;
+            padding: 18px;
+            box-shadow: 0 4px 14px rgba(15, 30, 48, 0.06);
+            border-top: 4px solid var(--accent-purple);
+            position: relative;
+        }
+
+        .check-card-remove {
+            position: absolute;
+            top: 10px;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .check-card-remove:hover {
+            color: #dc2626;
+        }
+
+        .check-item {
+            margin-bottom: 8px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .check-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .check-item strong {
+            color: var(--text-primary);
+        }
+
+        .check-item span {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        @media (max-width: 600px) {
+            .top-header {
+                padding: 14px 18px;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .field-row {
+                grid-template-columns: 1fr;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="top-header">
+        <div class="brand">
+            <div class="brand-badge">GP</div>
+            <span class="brand-title">Portal de Apoio - Gestão de Parcerias</span>
+        </div>
+        <nav class="nav-links">
+            <span>Início</span>
+            <span class="active">Checks</span>
+        </nav>
+    </header>
+
+    <div class="gradient-bar"></div>
+
+    <main class="container">
+        <section class="panel-card">
+            <h1>Registro de Checks</h1>
+            <p class="subtitle">Preencha os campos abaixo e clique em Enviar para gerar o card de conferência.</p>
+
+            <form id="checkForm" onsubmit="adicionarCheck(event)">
+                <div class="form-rows">
+                    <div class="field-row">
+                        <label for="dataCheck">Data:</label>
+                        <input type="date" id="dataCheck" required>
+                    </div>
+
+                    <div class="field-row">
+                        <label for="canalCheck">Canal:</label>
+                        <select id="canalCheck" required>
+                            <option value="" disabled selected>Selecione um canal</option>
+                            <option value="GloboNews">GloboNews</option>
+                            <option value="SporTV">SporTV</option>
+                            <option value="Multishow">Multishow</option>
+                        </select>
+                    </div>
+
+                    <div class="field-row">
+                        <label for="cmCheck">CM:</label>
+                        <input type="text" id="cmCheck" placeholder="Digite o número do código CM" required>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button type="submit" class="btn-enviar">Enviar</button>
+                    <button type="button" class="btn-limpar" onclick="limparCards()">Limpar Cards</button>
+                </div>
+
+                <div id="alertError" class="alert-error">Preencha Data, Canal e CM antes de enviar.</div>
+            </form>
+        </section>
+
+        <section id="cardsSection" style="display: none;">
+            <h2 class="cards-section-title">Checks Enviados</h2>
+            <div id="cardsGrid" class="cards-grid"></div>
+        </section>
+    </main>
+
+    <footer>
+        Portal de Apoio - Gestão de Parcerias
+    </footer>
+
+    <script>
+        const checksLista = [];
+
+        function formatarDataBR(dataISO) {
+            if (!dataISO) return '';
+            const partes = dataISO.split('-');
+            if (partes.length !== 3) return dataISO;
+            return `${partes[2]}/${partes[1]}/${partes[0]}`;
+        }
+
+        function adicionarCheck(event) {
+            event.preventDefault();
+
+            const dataInput = document.getElementById('dataCheck').value.trim();
+            const canalInput = document.getElementById('canalCheck').value.trim();
+            const cmInput = document.getElementById('cmCheck').value.trim();
+            const alertError = document.getElementById('alertError');
+
+            if (!dataInput || !canalInput || !cmInput) {
+                alertError.style.display = 'block';
+                return;
+            }
+
+            alertError.style.display = 'none';
+
+            checksLista.push({
+                data: formatarDataBR(dataInput),
+                canal: canalInput,
+                cm: cmInput
+            });
+
+            renderizarCards();
+
+            // Limpa apenas o CM para facilitar novos lançamentos mantendo data/canal se quiser
+            document.getElementById('cmCheck').value = '';
+            document.getElementById('cmCheck').focus();
+        }
+
+        function removerCard(index) {
+            checksLista.splice(index, 1);
+            renderizarCards();
+        }
+
+        function limparCards() {
+            checksLista.length = 0;
+            renderizarCards();
+        }
+
+        function renderizarCards() {
+            const section = document.getElementById('cardsSection');
+            const grid = document.getElementById('cardsGrid');
+
+            if (checksLista.length === 0) {
+                section.style.display = 'none';
+                grid.innerHTML = '';
+                return;
+            }
+
+            section.style.display = 'block';
+            grid.innerHTML = '';
+
+            checksLista.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'check-card';
+                card.innerHTML = `
+                    <button type="button" class="check-card-remove" title="Remover card" onclick="removerCard(${index})">&times;</button>
+                    <div class="check-item"><strong>Data:</strong> <span>${item.data}</span></div>
+                    <div class="check-item"><strong>Canal:</strong> <span>${item.canal}</span></div>
+                    <div class="check-item"><strong>CM:</strong> <span>${item.cm}</span></div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
