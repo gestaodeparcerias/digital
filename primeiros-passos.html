@@ -1,64 +1,241 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Primeiros Passos - Gestão de Parcerias</title>
+    <title>Portal de Apoio - Primeiros Passos</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            color: #333;
+        /* Estilo leve com paleta inspirada na logotipo */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
+
+        body {
+            background-color: #f8f9fc;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho e Menu Superior */
         header {
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(37, 99, 235, 0.08);
+            border-top: 4px solid;
+            border-image: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899, #f97316, #10b981) 1;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .navbar {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .logo-area span {
+            font-size: 1.15rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #0284c7, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            list-style: none;
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            color: #475569;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: block;
+        }
+
+        .nav-menu li a:hover {
+            background-color: #f0f7ff;
+            color: #0284c7;
+        }
+
+        .nav-menu li a.active {
+            background: linear-gradient(135deg, #e0f2fe 0%, #f3e8ff 100%);
+            color: #5b21b6;
+        }
+
+        /* Banner Principal com cores suaves e vivas */
+        .hero {
+            background: linear-gradient(120deg, #0ea5e9 0%, #6366f1 50%, #d946ef 100%);
+            color: #ffffff;
+            padding: 46px 24px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero p {
+            font-size: 1.05rem;
+            color: #f8fafc;
+            max-width: 680px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Área Principal de Conteúdo */
+        .container {
+            max-width: 1140px;
+            margin: 32px auto;
+            padding: 0 24px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            color: #1e293b;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        .card > p {
+            color: #475569;
             margin-bottom: 20px;
         }
-        .passo {
-            background: #f9f9f9;
-            border-left: 4px solid #0056b3;
-            padding: 15px;
-            margin-bottom: 15px;
+
+        /* Blocos de Passos */
+        .passo-item {
+            background-color: #f8fafc;
+            border-left: 4px solid #0284c7;
+            border-radius: 0 8px 8px 0;
+            padding: 20px 24px;
+            margin-bottom: 16px;
         }
-        a.voltar {
-            display: inline-block;
-            margin-top: 20px;
-            text-decoration: none;
-            color: #0056b3;
-            font-weight: bold;
+
+        .passo-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .passo-item h3 {
+            color: #0f172a;
+            font-size: 1.15rem;
+            margin-bottom: 8px;
+        }
+
+        .passo-item p {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 24px;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 48px;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- MENU SUPERIOR -->
     <header>
-        <h1>Primeiros Passos</h1>
-        <p>Guia inicial de apoio para clientes internos.</p>
+        <div class="navbar">
+            <a href="index.html" class="logo-area">
+                <img src="gestao_de_parcerias_logo_128px.png" alt="Logo Gestão de Parcerias">
+                <span>Portal de Apoio - Gestão de Parcerias</span>
+            </a>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="https://globoads.globo.com/" target="_blank" rel="noopener noreferrer">Globo Ads</a></li>
+                    <li><a href="https://globo.my.site.com/pricelist/s/baixar-pdf" target="_blank" rel="noopener noreferrer">Lista de Preços</a></li>
+                    <li><a href="mailto:opec.gestaodeparcerias@g.globo">Contato</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
 
-    <main>
-        <div class="passo">
-            <h2>1. Acesso ao Portal</h2>
-            <p>Descreva aqui como o cliente interno faz o primeiro acesso ou login.</p>
-        </div>
+    <!-- BANNER PRINCIPAL -->
+    <section class="hero">
+        <h1>Primeiros Passos</h1>
+        <p>Guia inicial de apoio para clientes internos da Gestão de Parcerias.</p>
+    </section>
 
-        <div class="passo">
-            <h2>2. Solicitações Diárias</h2>
-            <p>Explique como utilizar a página de rotina/diária e onde encontrar os formulários.</p>
-        </div>
+    <!-- CONTEÚDO DA PÁGINA -->
+    <main class="container">
+        <div class="card">
+            <h2>Primeiros Passos</h2>
+            <p>Orientações iniciais para começar a utilizar o portal e os fluxos operacionais:</p>
 
-        <div class="passo">
-            <h2>3. Canais de Suporte</h2>
-            <p>Informe os contatos ou prazos de atendimento da equipe.</p>
+            <div class="passo-item">
+                <h3>1. Acesso ao Portal</h3>
+                <p>Descreva aqui como o cliente interno faz o primeiro acesso ou login.</p>
+            </div>
+
+            <div class="passo-item">
+                <h3>2. Solicitações Diárias</h3>
+                <p>Explique como utilizar a página de rotina/diária e onde encontrar os formulários.</p>
+            </div>
+
+            <div class="passo-item">
+                <h3>3. Canais de Suporte</h3>
+                <p>Informe os canais oficiais, horários de atendimento e prazos (SLA) de retorno.</p>
+            </div>
         </div>
     </main>
 
+    <!-- RODAPÉ -->
     <footer>
-        <a href="index.html" class="voltar">← Voltar para a página inicial</a>
+        Portal de Apoio - Gestão de Parcerias
     </footer>
 
 </body>
