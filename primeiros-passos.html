@@ -161,6 +161,128 @@
             font-size: 0.95rem;
         }
 
+        /* Produtos clicáveis no texto */
+        .produto-trigger {
+            background: none;
+            border: none;
+            padding: 0 2px;
+            font: inherit;
+            font-weight: 600;
+            color: #0284c7;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .produto-trigger:hover {
+            color: #7c3aed;
+        }
+
+        /* Modal / Janela Pop-up */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(15, 23, 42, 0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 2000;
+        }
+
+        .modal-backdrop.is-open {
+            display: flex;
+        }
+
+        .modal-box {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border-top: 4px solid #7c3aed;
+            max-width: 560px;
+            width: 100%;
+            padding: 24px 28px;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+            animation: modalFadeIn 0.18s ease-out;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .modal-header h3 {
+            color: #1e293b;
+            font-size: 1.25rem;
+        }
+
+        .modal-close {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            line-height: 1;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background-color: #e2e8f0;
+            color: #0f172a;
+        }
+
+        .modal-body p {
+            color: #475569;
+            font-size: 0.96rem;
+            margin-bottom: 12px;
+        }
+
+        .modal-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        .modal-footer {
+            margin-top: 22px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-fechar {
+            background-color: #7c3aed;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            padding: 9px 18px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s ease;
+        }
+
+        .btn-fechar:hover {
+            opacity: 0.9;
+        }
+
         /* Rodapé */
         footer {
             text-align: center;
@@ -218,7 +340,14 @@
 
             <div class="passo-item">
                 <h3>1. Conhecendo os Produtos</h3>
-                <p>Dependendo da sua autorização, existem diferentes formatos para veicular seus criativos, como ROS (Display e Vídeo), Diária, Primeiríssima Globoplay e Pause Ads. Clique em cada um dos itens mencionados para conhecer melhor cada produto.</p>
+                <p>
+                    Dependendo da sua autorização, existem diferentes formatos para veicular seus criativos, como
+                    <button type="button" class="produto-trigger" data-produto="ros">ROS (Display e Vídeo)</button>,
+                    <button type="button" class="produto-trigger" data-produto="diaria">Diária</button>,
+                    <button type="button" class="produto-trigger" data-produto="primeirissima">Primeiríssima Globoplay</button> e
+                    <button type="button" class="produto-trigger" data-produto="pause-ads">Pause Ads</button>.
+                    Clique em cada um dos itens mencionados para conhecer melhor cada produto.
+                </p>
             </div>
 
             <div class="passo-item">
@@ -233,10 +362,96 @@
         </div>
     </main>
 
+    <!-- JANELA MODAL DE PRODUTOS -->
+    <div class="modal-backdrop" id="modalProduto" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modalTitulo">Produto</h3>
+                <button type="button" class="modal-close" id="btnFecharTopo" aria-label="Fechar janela">&times;</button>
+            </div>
+            <div class="modal-body" id="modalConteudo"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn-fechar" id="btnFecharRodape">Fechar</button>
+            </div>
+        </div>
+    </div>
+
     <!-- RODAPÉ -->
     <footer>
         Portal de Apoio - Gestão de Parcerias
     </footer>
+
+    <script>
+        // Edite aqui os textos exibidos na janela ao clicar em cada produto
+        const produtosInfo = {
+            "ros": {
+                titulo: "ROS (Display e Vídeo)",
+                descricao: "<p>Adicione aqui a descrição do formato <strong>ROS (Display e Vídeo)</strong>, onde ocorre a veiculação e principais pontos de atenção.</p><p><em>Dica: você pode incluir especificações, regras de envio ou observações operacionais.</em></p>"
+            },
+            "diaria": {
+                titulo: "Diária",
+                descricao: "<p>Adicione aqui os detalhes sobre o formato <strong>Diária</strong>, como funciona a solicitação e os prazos/regras aplicáveis.</p>"
+            },
+            "primeirissima": {
+                titulo: "Primeiríssima Globoplay",
+                descricao: "<p>Adicione aqui as informações sobre <strong>Primeiríssima Globoplay</strong>, contexto de exibição e orientações para o cliente interno.</p>"
+            },
+            "pause-ads": {
+                titulo: "Pause Ads",
+                descricao: "<p>Adicione aqui como funciona o formato <strong>Pause Ads</strong>, momento de exibição e recomendações de criativo.</p>"
+            }
+        };
+
+        const modal = document.getElementById("modalProduto");
+        const modalTitulo = document.getElementById("modalTitulo");
+        const modalConteudo = document.getElementById("modalConteudo");
+        const btnFecharTopo = document.getElementById("btnFecharTopo");
+        const btnFecharRodape = document.getElementById("btnFecharRodape");
+        const triggers = document.querySelectorAll(".produto-trigger");
+
+        let ultimoFoco = null;
+
+        function abrirModal(chaveProduto, elementoOrigem) {
+            const info = produtosInfo[chaveProduto];
+            if (!info) return;
+
+            ultimoFoco = elementoOrigem;
+            modalTitulo.textContent = info.titulo;
+            modalConteudo.innerHTML = info.descricao;
+            modal.classList.add("is-open");
+            btnFecharRodape.focus();
+        }
+
+        function fecharModal() {
+            modal.classList.remove("is-open");
+            if (ultimoFoco) {
+                ultimoFoco.focus();
+            }
+        }
+
+        triggers.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                abrirModal(btn.dataset.produto, btn);
+            });
+        });
+
+        btnFecharTopo.addEventListener("click", fecharModal);
+        btnFecharRodape.addEventListener("click", fecharModal);
+
+        // Fecha ao clicar fora da caixa branca
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                fecharModal();
+            }
+        });
+
+        // Fecha ao pressionar ESC
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("is-open")) {
+                fecharModal();
+            }
+        });
+    </script>
 
 </body>
 </html>
